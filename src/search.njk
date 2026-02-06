@@ -1,0 +1,61 @@
+---
+layout: layouts/base.njk
+title: Search Intelligence
+permalink: /search/
+---
+
+<div class="max-w-2xl mx-auto py-12">
+  <header class="mb-12 text-center">
+    <h1 class="text-4xl font-extrabold text-slate-900 dark:text-white font-serif mb-4">Search Intelligence</h1>
+    <p class="text-xl text-slate-600 dark:text-slate-400">Query the entire archive of daily analysis, reports, and lessons.</p>
+  </header>
+
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+  <style>
+    :root {
+      --pagefind-ui-scale: 1;
+      --pagefind-ui-primary: #2563eb;
+      --pagefind-ui-text: #1e293b;
+      --pagefind-ui-background: #ffffff;
+      --pagefind-ui-border: #e2e8f0;
+      --pagefind-ui-tag: #f1f5f9;
+      --pagefind-ui-border-width: 1px;
+      --pagefind-ui-border-radius: 0.5rem;
+      --pagefind-ui-image-border-radius: 0.5rem;
+      --pagefind-ui-image-box-ratio: 3 / 2;
+      --pagefind-ui-font: 'Inter', sans-serif;
+    }
+    .dark {
+      --pagefind-ui-primary: #60a5fa;
+      --pagefind-ui-text: #e2e8f0;
+      --pagefind-ui-background: #0f172a;
+      --pagefind-ui-border: #334155;
+      --pagefind-ui-tag: #1e293b;
+    }
+    .pagefind-ui .pagefind-ui__search-input {
+        background-color: var(--pagefind-ui-background) !important;
+        color: var(--pagefind-ui-text) !important;
+        border-color: var(--pagefind-ui-border) !important;
+    }
+    .pagefind-ui .pagefind-ui__search-clear {
+        background-color: transparent !important;
+        color: var(--pagefind-ui-text) !important;
+    }
+  </style>
+
+  <div id="search" class="w-full"></div>
+  
+  <script src="/pagefind/pagefind-ui.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ 
+          element: "#search", 
+          showSubResults: true, 
+          showImages: false,
+          translations: {
+            placeholder: "Search analysis, authors, topics..."
+          }
+        });
+    });
+  </script>
+</div>

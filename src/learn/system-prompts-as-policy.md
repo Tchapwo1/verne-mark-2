@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "System Prompts As Policy"
 type: learn
 pillar: Prompting

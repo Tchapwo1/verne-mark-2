@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Tool Poisoning"
 date: 2026-01-09
 type: daily

@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Assistants Privileged Software"
 type: learn
 pillar: Safety

@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Codex Multi Agent Dev"
 date: 2026-02-02
 type: daily

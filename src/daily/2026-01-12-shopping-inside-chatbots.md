@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Shopping Inside Chatbots"
 date: 2026-01-12
 type: daily

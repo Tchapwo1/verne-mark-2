@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Guardrails Survive Retries"
 type: learn
 pillar: Safety

@@ -3,11 +3,139 @@ layout: layouts/base.njk
 title: Verne Daily
 ---
 
-<h1>The Future of AI</h1>
-<p>Daily analysis, weekly intelligence, evergreen lessons.</p>
+<div class="space-y-16">
+  <!-- Newsroom Header -->
+  <div class="border-b border-slate-900 dark:border-white pb-6">
+    <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-slate-900 dark:text-white mb-2 uppercase" style="font-family: 'Inter', sans-serif;">Verne Daily</h1>
+    <div class="flex justify-between items-end">
+      <p id="dynamic-greeting" class="text-lg md:text-xl text-slate-600 dark:text-slate-400 font-serif italic max-w-xl">
+        Intelligence for the architects of the AI era.
+      </p>
+      <div class="hidden md:block text-right text-xs font-bold uppercase tracking-widest text-slate-400">
+        {{ collections.daily | getNewestCollectionItemDate | readableDate }}<br>
+        Issue #{{ collections.daily | length }}
+      </div>
+    </div>
+  </div>
 
-<ul>
-  <li><a href="/weekly/">Weekly Intel</a></li>
-  <li><a href="/daily/">Daily</a></li>
-  <li><a href="/learn/">Learn</a></li>
-</ul>
+  <!-- Hero Grid (Bento Style) -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pb-16 border-b border-gray-100 dark:border-slate-800">
+    <!-- Main Feature (Latest Daily) -->
+    <div class="lg:col-span-8">
+      {%- set dailyPosts = collections.daily | reverse -%}
+      {%- set heroPost = dailyPosts[0] -%}
+      <article class="relative group h-full flex flex-col justify-between">
+        <a href="{{ heroPost.url }}" class="block">
+          <div class="mb-6 overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800 aspect-video relative border border-slate-200 dark:border-slate-700">
+            <!-- Dynamic Screenshot/Image -->
+            {% image "https://v1.screenshot.11ty.dev/" + "https://vernedaily.com" | urlencoded + heroPost.url | urlencoded + "/opengraph/", "Hero Image for " + heroPost.data.title, "(min-width: 1024px) 800px, 100vw" %}
+          </div>
+          
+          <div class="flex items-center gap-3 text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-3">
+             <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+             <span>Latest Analysis</span>
+             <span class="text-slate-300 dark:text-slate-600">&middot;</span>
+             <span>{{ heroPost.templateContent | readingTime }}</span>
+          </div>
+
+          <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            {{ heroPost.data.title }}
+          </h2>
+          
+          <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-3xl mb-6">
+            {{ heroPost.data.description }}
+          </p>
+
+          <div class="flex items-center text-sm font-bold text-slate-900 dark:text-white group-hover:underline">
+            Read Full Briefing &rarr;
+          </div>
+        </a>
+      </article>
+    </div>
+
+    <!-- Right Rail (Weekly & Trending) -->
+    <div class="lg:col-span-4 flex flex-col gap-12 border-l border-gray-100 dark:border-slate-800 pl-0 lg:pl-12">
+      <!-- Weekly Intel Mini-List -->
+      <section>
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="font-bold text-slate-900 dark:text-white uppercase tracking-widest text-xs">Weekly Intel</h3>
+          <a href="/weekly/" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">View Archive</a>
+        </div>
+        <div class="space-y-6">
+          {%- for post in collections.weekly | reverse | slice(0, 2) -%}
+          <article class="group">
+            <a href="{{ post.url }}" class="block">
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1">
+                {{ post.data.title }}
+              </h4>
+              <time class="text-xs text-slate-500 dark:text-slate-400">{{ post.date | readableDate }}</time>
+            </a>
+          </article>
+          {%- endfor -%}
+        </div>
+      </section>
+
+      <!-- Library/Evergreen -->
+      <section class="flex-grow">
+        <h3 class="font-bold text-slate-900 dark:text-white uppercase tracking-widest text-xs mb-6">From The Library</h3>
+        <ul class="space-y-4">
+          {%- for post in collections.learn | reverse | slice(0, 3) -%}
+          <li>
+            <a href="{{ post.url }}" class="group flex items-start gap-3">
+              <span class="text-slate-300 dark:text-slate-600 group-hover:text-blue-500 transition-colors">&rarr;</span>
+              <span class="text-sm font-medium text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                {{ post.data.title }}
+              </span>
+            </a>
+          </li>
+          {%- endfor -%}
+        </ul>
+      </section>
+
+      <!-- Newsletter Box (Compact) -->
+      <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-lg text-center">
+        <h4 class="font-serif font-bold text-slate-900 dark:text-white mb-2">Join the 1%</h4>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Daily deep dives into AI architecture.</p>
+        <a href="#newsletter" class="block w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-bold py-2 rounded hover:opacity-90 transition-opacity">Subscribe Free</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Stream (Previous Dailies) -->
+  <div class="max-w-4xl mx-auto">
+    <div class="flex items-center gap-4 mb-10">
+      <span class="h-px bg-gray-200 dark:bg-slate-800 flex-grow"></span>
+      <h3 class="text-slate-400 dark:text-slate-500 uppercase tracking-widest text-xs font-bold">Previous Analysis</h3>
+      <span class="h-px bg-gray-200 dark:bg-slate-800 flex-grow"></span>
+    </div>
+
+    <div class="space-y-12">
+      {%- for post in dailyPosts.slice(1, 6) -%}
+      <article class="group grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
+        <div class="md:col-span-1 text-right md:pt-1">
+          <time class="text-sm font-bold text-slate-400 dark:text-slate-500 block">{{ post.date | readableDate }}</time>
+          <span class="text-xs text-slate-300 dark:text-slate-600 uppercase tracking-wider">{{ post.templateContent | readingTime }}</span>
+        </div>
+        <div class="md:col-span-3">
+          <a href="{{ post.url }}" class="block">
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-3">
+              {{ post.data.title }}
+            </h3>
+            {% if post.data.description %}
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{{ post.data.description }}</p>
+            {% endif %}
+          </a>
+        </div>
+      </article>
+      {%- endfor -%}
+    </div>
+    
+    <div class="text-center mt-16">
+      <a href="/daily/" class="inline-block border border-gray-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 px-8 py-3 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
+        View Full Archive
+      </a>
+    </div>
+  </div>
+  
+  <div id="newsletter"></div>
+</div>

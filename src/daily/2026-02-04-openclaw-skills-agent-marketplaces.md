@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "OpenClaw Skills Agent Marketplaces"
 date: 2026-02-04
 type: daily

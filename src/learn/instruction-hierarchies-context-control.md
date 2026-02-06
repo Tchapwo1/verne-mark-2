@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Instruction Hierarchies Context Control"
 type: learn
 pillar: Prompting

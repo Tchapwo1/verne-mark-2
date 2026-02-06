@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "ChatGPT Health"
 date: 2026-01-07
 type: daily

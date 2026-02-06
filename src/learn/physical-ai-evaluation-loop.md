@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Physical AI Evaluation Loop"
 type: learn
 pillar: Foundations

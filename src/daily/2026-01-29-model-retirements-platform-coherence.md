@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Model Retirements Platform Coherence"
 date: 2026-01-29
 type: daily

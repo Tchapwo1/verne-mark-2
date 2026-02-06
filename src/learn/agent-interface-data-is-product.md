@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Agent Interface Data Is Product"
 type: learn
 pillar: Systems

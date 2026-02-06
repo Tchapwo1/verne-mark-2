@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "EU Grok Inquiry Platform Liability"
 date: 2026-01-26
 type: daily

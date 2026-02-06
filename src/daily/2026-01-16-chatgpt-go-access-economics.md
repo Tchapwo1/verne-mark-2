@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "ChatGPT Go Access Economics"
 date: 2026-01-16
 type: daily

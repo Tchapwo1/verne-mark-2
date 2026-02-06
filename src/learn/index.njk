@@ -1,12 +1,26 @@
 ---
 layout: layouts/base.njk
-title: Learn
+title: The Library
 permalink: /learn/
 ---
 
-<h1>Learn</h1>
-<ul>
-{%- for post in collections.learn | reverse -%}
-  <li><a href="{{ post.url }}">{{ post.data.title }}</a> — {{ post.data.pillar }}</li>
-{%- endfor -%}
-</ul>
+<header class="mb-12 border-b border-gray-200 pb-8">
+  <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 mb-4">The Library</h1>
+  <p class="text-xl text-slate-600">Evergreen lessons, foundational systems, and mental models.</p>
+</header>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {%- for post in collections.learn | reverse -%}
+  <a href="{{ post.url }}" class="group block p-6 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-200 hover:shadow-md transition-all">
+    <div class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-4">
+      {{ post.data.pillar | default("Lesson") }}
+    </div>
+    <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2">
+      {{ post.data.title }}
+    </h3>
+    <div class="mt-4 flex items-center text-sm text-slate-400 font-medium group-hover:text-blue-500">
+      Read Lesson &rarr;
+    </div>
+  </a>
+  {%- endfor -%}
+</div>

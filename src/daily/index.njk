@@ -1,12 +1,31 @@
 ---
 layout: layouts/base.njk
-title: Daily
+title: Daily Analysis
 permalink: /daily/
 ---
 
-<h1>Daily</h1>
-<ul>
-{%- for post in collections.daily | reverse -%}
-  <li><a href="{{ post.url }}">{{ post.data.title }}</a> — {{ post.date | readableDate }}</li>
-{%- endfor -%}
-</ul>
+<header class="mb-12 border-b border-gray-200 pb-8">
+  <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 mb-4">Daily Analysis</h1>
+  <p class="text-xl text-slate-600">Fresh perspectives and deep dives, delivered every day.</p>
+</header>
+
+<div class="space-y-12">
+  {%- for post in collections.daily | reverse -%}
+  <article class="group grid grid-cols-1 md:grid-cols-4 gap-6 items-baseline">
+    <div class="md:col-span-1">
+      <time class="text-sm font-semibold text-slate-400 uppercase tracking-wider" datetime="{{ post.date }}">{{ post.date | readableDate }}</time>
+    </div>
+    <div class="md:col-span-3">
+      <a href="{{ post.url }}" class="block">
+        <h2 class="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2">
+          {{ post.data.title }}
+        </h2>
+        {% if post.data.description %}
+        <p class="text-slate-600 mb-3 leading-relaxed">{{ post.data.description }}</p>
+        {% endif %}
+        <span class="text-blue-600 font-medium text-sm group-hover:underline">Read article &rarr;</span>
+      </a>
+    </div>
+  </article>
+  {%- endfor -%}
+</div>

@@ -1,0 +1,27 @@
+---
+permalink: feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Verne Daily</title>
+  <subtitle>Daily analysis, weekly intelligence, and evergreen lessons for the modern technologist.</subtitle>
+  <link href="https://vernedaily.com/feed.xml" rel="self"/>
+  <link href="https://vernedaily.com/"/>
+  <updated>{{ collections.daily | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
+  <id>https://vernedaily.com/</id>
+  <author>
+    <name>Verne Daily</name>
+    <email>hello@vernedaily.com</email>
+  </author>
+  {%- for post in collections.daily | reverse -%}
+  {% set absolutePostUrl %}{{ post.url | url | absoluteUrl("https://vernedaily.com") }}{% endset %}
+  <entry>
+    <title>{{ post.data.title }}</title>
+    <link href="{{ absolutePostUrl }}"/>
+    <updated>{{ post.date | dateToRfc3339 }}</updated>
+    <id>{{ absolutePostUrl }}</id>
+    <content type="html">{{ post.templateContent | htmlToAbsoluteUrls("https://vernedaily.com") }}</content>
+  </entry>
+  {%- endfor -%}
+</feed>

@@ -1,0 +1,18 @@
+<div class="mt-20 mb-20 p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left transition-colors duration-200">
+  <div class="flex-shrink-0">
+    <div class="w-24 h-24 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-3xl overflow-hidden border-4 border-white dark:border-slate-800 shadow-md">
+      {% if author_image %}
+        <img src="{{ author_image }}" alt="{{ author }}" class="w-full h-full object-cover">
+      {% else %}
+        <span class="font-serif font-bold text-blue-600 dark:text-blue-400">J</span>
+      {% endif %}
+    </div>
+  </div>
+  <div>
+    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 font-serif">About {{ author | default("The Author") }}</h3>
+    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+      {{ author_bio | default("Systems Architect exploring the intersection of AI, enterprise software, and human leverage. Building for clarity in a noisy world.") }}
+    </p>
+    <a href="/about/" class="text-sm font-bold text-blue-600 dark:text-blue-400 hover:underline">More contributions &rarr;</a>
+  </div>
+</div>

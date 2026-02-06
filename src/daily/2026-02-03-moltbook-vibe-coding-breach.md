@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Moltbook Vibe Coding Breach"
 date: 2026-02-03
 type: daily

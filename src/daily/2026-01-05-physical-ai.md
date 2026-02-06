@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Physical AI Is Becoming a Product Category, Not a Research Demo"
 date: 2026-01-05
 type: daily

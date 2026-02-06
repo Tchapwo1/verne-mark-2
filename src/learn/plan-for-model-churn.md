@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Plan For Model Churn"
 type: learn
 pillar: Systems

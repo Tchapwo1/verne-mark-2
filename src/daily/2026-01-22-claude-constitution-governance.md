@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Claude Constitution Governance"
 date: 2026-01-22
 type: daily

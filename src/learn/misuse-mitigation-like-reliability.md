@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Misuse Mitigation Like Reliability"
 type: learn
 pillar: Safety

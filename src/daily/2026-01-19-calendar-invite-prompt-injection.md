@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Calendar Invite Prompt Injection"
 date: 2026-01-19
 type: daily

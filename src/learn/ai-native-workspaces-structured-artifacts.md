@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Ai Native Workspaces Structured Artifacts"
 type: learn
 pillar: Systems

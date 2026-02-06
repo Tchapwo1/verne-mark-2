@@ -1,0 +1,48 @@
+---
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter:
+    - all
+    - post
+    - daily
+    - weekly
+    - learn
+    - posts
+permalink: /topic/{{ tag | slugify }}/
+layout: layouts/base.njk
+title: "Topic: {{ tag }}"
+---
+
+<header class="mb-12 border-b border-gray-200 dark:border-slate-800 pb-8 transition-colors duration-200">
+  <div class="flex items-center gap-2 mb-4 text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-widest">
+    <span>Topic</span>
+  </div>
+  <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight font-serif">
+    {{ tag | capitalize }}
+  </h1>
+</header>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+  <div class="md:col-span-2 space-y-12">
+    {% set taglist = collections[ tag ] %}
+    {% for post in taglist | reverse %}
+    <article class="group">
+      <a href="{{ post.url }}" class="block">
+        <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
+          <time datetime="{{ post.date }}">{{ post.date | readableDate }}</time>
+          <span>&middot;</span>
+          <span>{{ post.templateContent | readingTime }}</span>
+        </div>
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
+          {{ post.data.title }}
+        </h2>
+        {% if post.data.description %}
+        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">{{ post.data.description }}</p>
+        {% endif %}
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+</div>

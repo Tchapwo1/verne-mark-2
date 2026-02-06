@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Supervising Agents Workflow Skill"
 type: learn
 pillar: Systems

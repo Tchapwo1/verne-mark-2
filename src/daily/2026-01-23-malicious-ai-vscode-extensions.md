@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Malicious AI VSCode Extensions"
 date: 2026-01-23
 type: daily

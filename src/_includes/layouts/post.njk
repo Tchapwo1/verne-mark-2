@@ -1,0 +1,130 @@
+{# Determine Series Styling and Paper White Logic #}
+{% set seriesClass = "" %}
+{% set headerClass = "border-black/5 dark:border-white/10" %}
+{% set bgClass = "" %}
+
+{% if type == 'weekly' %}
+  {% set seriesClass = "bg-[url('/assets/grid-pattern.png')] bg-fixed" %}
+  {% set headerClass = "border-indigo-200 dark:border-indigo-900" %}
+{% elseif type == 'learn' %}
+  {# 1. Paper White Theory: Learn pages use Cream background #}
+  {% set seriesClass = "font-serif" %}
+  {% set headerClass = "border-stone-200 dark:border-stone-800" %}
+  {% set bgClass = "bg-[#fdfbf7]" %} {# Cream #}
+{% endif %}
+
+<article class="max-w-7xl mx-auto {{ seriesClass }} {{ bgClass }}">
+  <header class="mb-12 text-center border-b {{ headerClass }} pb-10 transition-colors duration-200 pt-10">
+    <div class="flex items-center justify-center gap-3 text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-4">
+      <span>{{ type | default("Article") | capitalize }}</span>
+      <span>&middot;</span>
+      <time datetime="{{ date }}">{{ date | readableDate }}</time>
+      <span>&middot;</span>
+      <span>{{ content | readingTime }}</span>
+    </div>
+    
+    <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-6 font-serif max-w-4xl mx-auto">
+      {{ title }}
+    </h1>
+
+    {% if description %}
+    <p class="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-serif italic">
+      {{ description }}
+    </p>
+    {% endif %}
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 px-4 md:px-0">
+    
+    <!-- Main Content (Asymmetric: Cols 2-9) -->
+    <div class="lg:col-span-8 lg:col-start-2 prose prose-lg prose-slate dark:prose-invert prose-headings:font-serif prose-headings:font-bold prose-headings:text-slate-900 dark:prose-headings:text-white prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-p:leading-8 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:font-medium hover:prose-a:underline prose-blockquote:border-blue-600 prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-slate-900 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:not-italic prose-li:text-slate-700 dark:prose-li:text-slate-300 focus:outline-none transition-colors duration-200">
+      {{ content | safe }}
+      
+      <hr class="my-12 border-black/5 dark:border-white/10" />
+      
+      {% include "components/newsletter.njk" %}
+      {% include "components/share.njk" %}
+      {% include "components/bio.njk" %}
+      {% include "components/comments.njk" %}
+    </div>
+
+    <!-- Sidenote/TOC Rail (Cols 10-12) -->
+    <aside class="hidden lg:block lg:col-span-3 lg:col-start-10 h-full">
+      <div class="sticky top-24 space-y-8">
+        <!-- TOC -->
+        <div>
+          <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">On This Page</h4>
+          <div class="prose-sm text-slate-500 dark:text-slate-400 border-l border-black/5 dark:border-white/10 pl-4">
+            {{ content | toc | safe }}
+          </div>
+        </div>
+        
+        <!-- Placeholder for Sidenotes -->
+        <div class="text-xs text-slate-400 italic">
+          <!-- Future Sidenotes can be injected here via shortcode -->
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <div class="flex flex-col md:flex-row justify-between items-center gap-6 mt-12 pt-8 border-t border-black/5 dark:border-white/10 max-w-4xl mx-auto pb-20">
+    {% set previousPost = collections[type] | getPreviousCollectionItem(page) %}
+    {% set nextPost = collections[type] | getNextCollectionItem(page) %}
+    
+    <div class="w-full md:w-1/2 text-left">
+      {% if previousPost %}
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 block">&larr; Previous</span>
+      <a href="{{ previousPost.url }}" class="text-lg font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-serif block">
+        {{ previousPost.data.title }}
+      </a>
+      {% endif %}
+    </div>
+
+    <div class="w-full md:w-1/2 text-right">
+      {% if nextPost %}
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 block">Next &rarr;</span>
+      <a href="{{ nextPost.url }}" class="text-lg font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-serif block">
+        {{ nextPost.data.title }}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mt-20 border-t border-black/5 dark:border-white/10 pt-12 max-w-6xl mx-auto">
+    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-8 font-serif">Related Intel</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {% set relatedPosts = collections.all | getRelatedPosts(page.url, tags) %}
+      {% if relatedPosts.length > 0 %}
+        {% for post in relatedPosts %}
+        <a href="{{ post.url }}" class="group block bg-slate-50 dark:bg-slate-900 p-6 rounded-xl border border-black/5 dark:border-white/10 hover:border-blue-200 dark:hover:border-slate-700 transition-all shadow-sm hover:shadow-blue-500/20">
+          <div class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-3">
+            {{ post.data.type | default("Article") | capitalize }}
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
+            {{ post.data.title }}
+          </h4>
+          <span class="text-sm text-slate-500 dark:text-slate-400">Read now &rarr;</span>
+        </a>
+        {% endfor %}
+      {% else %}
+        <p class="text-slate-500 dark:text-slate-400 italic col-span-2">No directly related intel found. Check the <a href="/daily/" class="text-blue-600 underline">Daily Analysis</a> for more.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <footer class="mt-16 pt-10 border-t border-black/5 dark:border-white/10 transition-colors duration-200">
+    <div class="flex items-center justify-between">
+      <a href="/" class="text-sm font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">&larr; Back to Home</a>
+      <div class="flex gap-4">
+        <!-- Social share placeholders could go here -->
+      </div>
+    </div>
+  </footer>
+</article>
+<style>
+    {% if bgClass %}
+    body { background-color: #fdfbf7 !important; }
+    .dark body { background-color: #0b0c10 !important; }
+    {% endif %}
+</style>

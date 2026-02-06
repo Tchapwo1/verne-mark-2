@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Indirect Prompt Injection Boundary"
 type: learn
 pillar: Safety

@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Reprompt Link Is A Prompt"
 date: 2026-01-15
 type: daily

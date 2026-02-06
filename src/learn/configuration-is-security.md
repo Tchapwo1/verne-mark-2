@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Configuration Is Security"
 type: learn
 pillar: Safety

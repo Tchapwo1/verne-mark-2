@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: layouts/post.njk
 title: "Prism AI Science Workspace"
 date: 2026-01-27
 type: daily
