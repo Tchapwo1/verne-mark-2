@@ -84,4 +84,77 @@ document.addEventListener("DOMContentLoaded", () => {
             tooltip.style.opacity = '0';
         });
     });
+
+    // 9. Interactive Sidenotes Logic
+    const initSidenotes = () => {
+        const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+        const sidenoteRail = document.querySelector('aside .sticky > div:last-child'); // The placeholder div in post.njk
+        const articleContainer = document.querySelector('article');
+
+        if (isDesktop && sidenoteRail && articleContainer) {
+            // Move footnotes to rail
+            document.querySelectorAll('.sidenote-wrapper').forEach((wrapper, index) => {
+                const content = wrapper.querySelector('.sidenote-content');
+                const label = wrapper.parentElement.querySelector(`label[for="${wrapper.querySelector('input').id}"]`);
+
+                if (!content || !label || content.classList.contains('moved')) return;
+
+                // Clone content to rail
+                const dockedNote = content.cloneNode(true);
+                dockedNote.classList.add('sidenote-docked', 'moved');
+                dockedNote.classList.remove('sidenote-content');
+
+                // Calculate Top Position
+                // We need the offset of the label relative to the top of the sticky container?
+                // Actually relative to the top of the article content column?
+                // The rail is sticky, so `top: 0` is the top of the viewport...
+                // This is tricky.
+
+                // Simpler approach:
+                // Use absolute positioning inside the aside which is `position: relative` or `static`.
+                // The aside container is sticky. So if we put absolute elements in it, they move with it.
+                // We want them to scroll WITH the page, but sit in the rail.
+                // The sticky container makes the RAIL contents stay put, but we want the NOTES to stay next to text.
+                // So the notes should NOT be inside the sticky container. They should be in the ASIDE column but outside the sticky div?
+                // OR we just absolutely position them in the grid column 10-12 relative to the whole grid row.
+
+                // Let's APPEND them to the Aside Column itself (parent of sticky), and make sure that column is relative.
+                const asideColumn = document.querySelector('aside');
+                asideColumn.style.position = 'relative';
+
+                // Calculate position relative to the main article wrapper
+                // The label's offsetTop is relative to the prose container.
+                const labelOffset = label.getBoundingClientRect().top + window.scrollY;
+                const asideOffset = asideColumn.getBoundingClientRect().top + window.scrollY;
+
+                const relativeTop = labelOffset - asideOffset - 10; // -10 for alignment
+
+                dockedNote.style.top = `${Math.max(0, relativeTop)}px`;
+                dockedNote.id = `docked-${index}`;
+
+                asideColumn.appendChild(dockedNote);
+
+                // Add interaction
+                label.addEventListener('mouseenter', () => {
+                    dockedNote.classList.add('sidenote-active');
+                    dockedNote.style.zIndex = '50';
+                });
+                label.addEventListener('mouseleave', () => {
+                    dockedNote.classList.remove('sidenote-active');
+                    dockedNote.style.zIndex = '1';
+                });
+
+                // Mark original as moved/hidden
+                content.classList.add('hidden-desktop');
+            });
+        }
+    };
+
+    // Run on load and resize (debounce resize)
+    initSidenotes();
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(initSidenotes, 250);
+    });
 });

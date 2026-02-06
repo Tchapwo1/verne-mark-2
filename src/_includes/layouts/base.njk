@@ -425,6 +425,92 @@
         border-color: rgba(255,255,255,0.08) !important;
     }
 
+    /* 9. Interactive Sidenotes */
+    .sidenote-ref {
+      color: #2563eb;
+      font-weight: bold;
+      cursor: pointer;
+      vertical-align: super;
+      font-size: 0.75em;
+      margin-left: 0.1em;
+      user-select: none;
+    }
+    .dark .sidenote-ref { color: #60a5fa; }
+
+    /* Default (Mobile): Sidenotes start hidden, appear inline when checked */
+    .sidenote-content {
+      display: none;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background-color: #f8fafc;
+      border-left: 3px solid #64748b;
+      font-size: 0.9em;
+      color: #334155;
+      font-family: sans-serif;
+    }
+    .dark .sidenote-content {
+      background-color: #1e293b;
+      color: #94a3b8;
+    }
+
+    /* Checkbox Hack for Mobile Toggle */
+    .sidenote-toggle:checked + .sidenote-content {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Desktop (lg+): Sidenotes move to the right rail */
+    @media (min-width: 1024px) {
+      /* Hide the ref label's default interaction if we want hover? Keep it simple for now. */
+      
+      /* The Wrapper must NOT break the flow of the paragraph too much, 
+         but we need to break out of the column.
+         This is tricky with CSS Grid/Prose.
+         
+         STRATEGY: Use absolute positioning relative to the ARTICLE container? No.
+         STRATEGY: Use interactions.js to physically move the nodes to the aside.
+         
+         We will keep them hidden in CSS here, and let JS enact the move.
+       */
+       .sidenote-content {
+         /* Keep using the mobile style as fallback until JS moves it */
+       }
+       
+       /* Style for when it is moved to the aside */
+       .sidenote-docked {
+          display: block !important;
+          margin-bottom: 2rem;
+          font-size: 0.85rem;
+          line-height: 1.5;
+          color: #64748b;
+          border-left: none;
+          padding: 0;
+          background: transparent;
+          /* Align with the reference line (handled by JS top positioning) */
+          position: absolute;
+          width: 100%;
+          transition: opacity 0.3s, top 0.3s;
+       }
+       .dark .sidenote-docked { color: #94a3b8; background: transparent; }
+       
+       .sidenote-marker { font-weight: bold; color: #2563eb; margin-right: 0.5em; }
+       .dark .sidenote-marker { color: #60a5fa; }
+       
+       .sidenote-active {
+          color: #0f172a;
+          background: rgba(37, 99, 235, 0.05);
+          padding: 1rem;
+          border-radius: 0.5rem;
+          border: 1px solid rgba(37, 99, 235, 0.2);
+       }
+       .dark .sidenote-active {
+          color: white;
+          background: rgba(37, 99, 235, 0.1);
+       }
+    }
+
     /* 4. Obsidian Dark Mode (Base override) */
     /* This will be applied to the body class via JS or inline style if tailwind config allows. */
   </style>

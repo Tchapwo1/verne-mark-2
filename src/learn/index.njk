@@ -4,23 +4,88 @@ title: The Library
 permalink: /learn/
 ---
 
-<header class="mb-12 border-b border-gray-200 pb-8">
-  <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 mb-4">The Library</h1>
-  <p class="text-xl text-slate-600">Evergreen lessons, foundational systems, and mental models.</p>
+<header class="mb-20 text-center max-w-3xl mx-auto">
+  <div class="inline-block p-1 rounded-full bg-blue-50 dark:bg-slate-800 border border-blue-100 dark:border-slate-700 mb-6">
+    <div class="px-3 py-1 text-xs font-bold tracking-widest uppercase text-blue-600 dark:text-blue-400">Evergreen Knowledge</div>
+  </div>
+  <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 font-serif">The Library</h1>
+  <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 font-serif italic">
+    Foundational systems, mental models, and architectural patterns for the AI era.
+  </p>
 </header>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-  {%- for post in collections.learn | reverse -%}
-  <a href="{{ post.url }}" class="group block p-6 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-200 hover:shadow-md transition-all">
-    <div class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-4">
-      {{ post.data.pillar | default("Lesson") }}
+{# Define Pillars manually or via data file ideally #}
+{% set pillars = ["Systems", "Governance", "Security", "Operations"] %}
+
+<div class="space-y-24">
+  {# Loop through Pillars #}
+  {% for pillar in pillars %}
+  <section class="relative">
+    {# Pillar Header #}
+    <div class="flex items-end justify-between border-b border-black/10 dark:border-white/10 pb-4 mb-8">
+      <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white font-serif">{{ pillar }}</h2>
+      <span class="text-sm font-bold text-slate-400 uppercase tracking-widest hidden md:block">Series 0{{ loop.index }}</span>
     </div>
-    <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2">
-      {{ post.data.title }}
-    </h3>
-    <div class="mt-4 flex items-center text-sm text-slate-400 font-medium group-hover:text-blue-500">
-      Read Lesson &rarr;
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {# Filter posts by pillar #}
+      {% for post in collections.learn | reverse %}
+        {% if post.data.pillar == pillar %}
+        <a href="{{ post.url }}" class="group block bg-[#fdfbf7] dark:bg-slate-900 border border-black/5 dark:border-white/5 p-8 rounded-sm hover:border-blue-200 dark:hover:border-blue-900 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 relative overflow-hidden">
+          
+          {# Status Badge #}
+          <div class="absolute top-0 right-0 p-4">
+             {% if post.data.status == 'evergreen' %}
+               <div class="w-2 h-2 rounded-full bg-green-500 shadow-lg shadow-green-500/50" title="Evergreen (Finished)"></div>
+             {% elseif post.data.status == 'sapling' %}
+               <div class="w-2 h-2 rounded-full bg-yellow-500" title="Sapling (Growing)"></div>
+             {% else %}
+               <div class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700" title="Seedling (Draft)"></div>
+             {% endif %}
+          </div>
+          
+          {# Card Content #}
+          <div class="mb-6">
+             <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">{{ post.date | readableDate }}</span>
+          </div>
+          
+          <h3 class="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-4 font-serif leading-tight">
+            {{ post.data.title }}
+          </h3>
+          
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6 line-clamp-3">
+             {{ post.data.description | default("A deep dive into " + post.data.title | lower + ".") }}
+          </p>
+          
+          <div class="flex items-center text-sm font-bold text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
+             Study this model &rarr;
+          </div>
+        </a>
+        {% endif %}
+      {% endfor %}
+      
+      {# Fallback if no posts in this pillar yet #}
+      <!-- <div class="col-span-full text-center text-slate-400 italic py-8 border border-dashed border-slate-200 rounded">
+        No modules filed under {{ pillar }} yet.
+      </div> -->
     </div>
-  </a>
-  {%- endfor -%}
+  </section>
+  {% endfor %}
+  
+  {# "Other" Section for uncategorized content #}
+  <section class="relative opacity-60 hover:opacity-100 transition-opacity">
+    <div class="flex items-end justify-between border-b border-black/10 dark:border-white/10 pb-4 mb-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white font-serif">Uncategorized Modules</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      {% for post in collections.learn | reverse %}
+        {% if not post.data.pillar or post.data.pillar not in pillars %}
+          <a href="{{ post.url }}" class="block p-4 border border-black/5 dark:border-white/5 rounded hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+            <h4 class="font-bold text-slate-700 dark:text-slate-300 mb-1">{{ post.data.title }}</h4>
+            <span class="text-xs text-slate-400">{{ post.date | readableDate }}</span>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
 </div>

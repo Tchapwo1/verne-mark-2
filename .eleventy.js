@@ -59,6 +59,30 @@ module.exports = function (eleventyConfig) {
     return DateTime.fromJSDate(dateObj).toFormat("d LLL yyyy");
   });
 
+  // Sidenote Shortcode
+  // Usage: {% sidenote "unique-id" %}Markdown content here{% endsidenote %}
+  eleventyConfig.addPairedShortcode("sidenote", function (content, id) {
+    // Render the content inside the sidenote as markdown
+    const mdContent = mdLib.renderInline(content);
+
+    // Output 1: The Reference Number/Label in the main text
+    // We use a checkbox hack or button for interaction
+    const labelHtml = `<label for="sn-${id}" class="sidenote-ref" aria-describedby="sn-content-${id}">⊕</label>`;
+
+    // Output 2: The Sidenote Content (hidden in main flow, moved via CSS/JS)
+    // We output it right next to the label, but CSS will move it to the margin.
+    const noteHtml = `
+    <span class="sidenote-wrapper">
+      <input type="checkbox" id="sn-${id}" class="sidenote-toggle hidden" />
+      <span class="sidenote-content" id="sn-content-${id}" role="complementary">
+        <span class="sidenote-marker">⊕</span>
+        ${mdContent}
+      </span>
+    </span>`;
+
+    return `${labelHtml}${noteHtml}`;
+  });
+
   eleventyConfig.addFilter("readingTime", (content) => {
     const contentWithoutHtml = content.replace(/(<([^>]+)>)/gi, "");
     const words = contentWithoutHtml.match(/[\w\d\’\'-]+/gi);
