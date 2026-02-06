@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "Plan For Model Churn"
 type: learn
-pillar: Systems
+pillar: Operations
+status: sapling
 permalink: "/learn/plan-for-model-churn/"
 ---
 

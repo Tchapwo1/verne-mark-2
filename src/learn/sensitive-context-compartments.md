@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "Sensitive Context Compartments"
 type: learn
-pillar: Systems
+pillar: Security
+status: evergreen
 permalink: "/learn/sensitive-context-compartments/"
 ---
 

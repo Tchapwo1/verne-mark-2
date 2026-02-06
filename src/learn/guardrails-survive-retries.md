@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "Guardrails Survive Retries"
 type: learn
-pillar: Safety
+pillar: Operations
+status: sapling
 permalink: "/learn/guardrails-survive-retries/"
 ---
 

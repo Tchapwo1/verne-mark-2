@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "Distribution Shapes Behavior"
 type: learn
-pillar: Foundations
+pillar: Governance
+status: sapling
 permalink: "/learn/distribution-shapes-behavior/"
 ---
 

@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "Assistants Privileged Software"
 type: learn
-pillar: Safety
+pillar: Systems
+status: evergreen
 permalink: "/learn/assistants-privileged-software/"
 ---
 

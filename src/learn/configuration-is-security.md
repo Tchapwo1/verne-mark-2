@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "Configuration Is Security"
 type: learn
-pillar: Safety
+pillar: Security
+status: evergreen
 permalink: "/learn/configuration-is-security/"
 ---
 

@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "System Prompts As Policy"
 type: learn
-pillar: Prompting
+pillar: Governance
+status: sapling
 permalink: "/learn/system-prompts-as-policy/"
 ---
 

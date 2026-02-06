@@ -4,9 +4,22 @@ title: Daily Analysis
 permalink: /daily/
 ---
 
-<header class="mb-12 border-b border-gray-200 pb-8">
-  <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 mb-4">Daily Analysis</h1>
-  <p class="text-xl text-slate-600">Fresh perspectives and deep dives, delivered every day.</p>
+<header class="mb-12 border-b border-gray-200 dark:border-slate-800 pb-8 text-center md:text-left">
+  <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4 font-serif">Daily Analysis</h1>
+  <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mb-8">Fresh perspectives and deep dives, delivered every day.</p>
+  
+  <!-- Frequency Heatmap (Last 60 Days) -->
+  <div class="flex flex-col md:flex-row items-center gap-4">
+    <div class="flex gap-1 flex-wrap max-w-lg justify-center md:justify-start" title="Publishing Frequency (Last 60 Days)">
+      {% for day in collections.daily | getDailyActivity %}
+        <div 
+          class="w-3 h-3 rounded-sm transition-all hover:scale-125 {{ 'bg-blue-600 dark:bg-blue-500 shadow-sm shadow-blue-500/50' if day.count > 0 else 'bg-slate-200 dark:bg-slate-800' }}"
+          title="{{ day.date }}: {{ day.count }} Post{{ 's' if day.count != 1 else '' }}"
+        ></div>
+      {% endfor %}
+    </div>
+    <span class="text-xs text-slate-400 uppercase tracking-widest font-bold">Latest 60 Days</span>
+  </div>
 </header>
 
 <div class="space-y-12">

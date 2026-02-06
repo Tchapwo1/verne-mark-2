@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "Instruction Hierarchies Context Control"
 type: learn
-pillar: Prompting
+pillar: Systems
+status: evergreen
 permalink: "/learn/instruction-hierarchies-context-control/"
 ---
 

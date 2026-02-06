@@ -137,6 +137,33 @@ module.exports = function (eleventyConfig) {
       .map(item => item.post);
   });
 
+  // Heatmap Filter: Returns last 60 days activity
+  eleventyConfig.addFilter("getDailyActivity", (collection) => {
+    if (!collection) return [];
+
+    const days = [];
+    const now = DateTime.now();
+
+    // Map existing posts by date string (yyyy-MM-dd)
+    const postsByDate = {};
+    collection.forEach(post => {
+      const dateStr = DateTime.fromJSDate(post.date).toFormat("yyyy-MM-dd");
+      postsByDate[dateStr] = (postsByDate[dateStr] || 0) + 1;
+    });
+
+    // Generate last 60 days
+    for (let i = 59; i >= 0; i--) {
+      const date = now.minus({ days: i });
+      const dateStr = date.toFormat("yyyy-MM-dd");
+      days.push({
+        date: date.toFormat("MMM d"),
+        iso: dateStr,
+        count: postsByDate[dateStr] || 0
+      });
+    }
+    return days;
+  });
+
   return {
     dir: {
       input: "src",

@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "Supervising Agents Workflow Skill"
 type: learn
-pillar: Systems
+pillar: Operations
+status: sapling
 permalink: "/learn/supervising-agents-workflow-skill/"
 ---
 

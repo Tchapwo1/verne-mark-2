@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "Physical AI Evaluation Loop"
 type: learn
-pillar: Foundations
+pillar: Systems
+status: evergreen
 permalink: "/learn/physical-ai-evaluation-loop/"
 ---
 

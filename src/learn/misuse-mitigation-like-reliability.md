@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "Misuse Mitigation Like Reliability"
 type: learn
-pillar: Safety
+pillar: Security
+status: evergreen
 permalink: "/learn/misuse-mitigation-like-reliability/"
 ---
 

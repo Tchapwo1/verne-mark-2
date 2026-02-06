@@ -2,7 +2,8 @@
 layout: layouts/post.njk
 title: "Agent Marketplaces Signing Sandboxing Revocation"
 type: learn
-pillar: Safety
+pillar: Security
+status: evergreen
 permalink: "/learn/agent-marketplaces-signing-sandboxing-revocation/"
 ---
 
