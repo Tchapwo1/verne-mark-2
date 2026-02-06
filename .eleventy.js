@@ -68,6 +68,10 @@ module.exports = function (eleventyConfig) {
     return `${minutes} min read`;
   });
 
+  eleventyConfig.addFilter("urlencoded", (str) => {
+    return encodeURIComponent(str);
+  });
+
   // Helper to filter drafts
   const livePosts = (post) => !post.data.draft;
 

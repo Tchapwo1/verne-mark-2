@@ -7,7 +7,7 @@
     "build": "npx @11ty/eleventy && npx pagefind --site _site"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy": "^3.0.0-alpha.18",
     "luxon": "^3.4.4"
   },
   "dependencies": {

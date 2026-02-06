@@ -34,8 +34,6 @@ title: Verne Daily
           <div class="flex items-center gap-3 text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-3">
              <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
              <span>Latest Analysis</span>
-             <span class="text-slate-300 dark:text-slate-600">&middot;</span>
-             <span>{{ heroPost.templateContent | readingTime }}</span>
           </div>
 
           <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -114,7 +112,6 @@ title: Verne Daily
       <article class="group grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
         <div class="md:col-span-1 text-right md:pt-1">
           <time class="text-sm font-bold text-slate-400 dark:text-slate-500 block">{{ post.date | readableDate }}</time>
-          <span class="text-xs text-slate-300 dark:text-slate-600 uppercase tracking-wider">{{ post.templateContent | readingTime }}</span>
         </div>
         <div class="md:col-span-3">
           <a href="{{ post.url }}" class="block">
