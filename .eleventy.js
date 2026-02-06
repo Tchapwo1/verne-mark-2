@@ -7,6 +7,18 @@ module.exports = function (eleventyConfig) {
     return DateTime.fromJSDate(dateObj).toFormat("d LLL yyyy");
   });
 
+  eleventyConfig.addCollection("daily", (collectionApi) =>
+    collectionApi.getFilteredByGlob("src/daily/*.md")
+  );
+
+  eleventyConfig.addCollection("weekly", (collectionApi) =>
+    collectionApi.getFilteredByGlob("src/weekly/*.md")
+  );
+
+  eleventyConfig.addCollection("learn", (collectionApi) =>
+    collectionApi.getFilteredByGlob("src/learn/*.md")
+  );
+
   return {
     dir: {
       input: "src",
